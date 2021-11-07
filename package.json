@@ -1,6 +1,6 @@
 {
   "name": "tv4-formats",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Common JSON Schema string format constraints in the form of tv4 validator callbacks",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "webpack": "^3.6.0"
   },
   "dependencies": {
-    "moment": "^2.10.6",
-    "validator": "^8.2.0"
+    "moment": "^2.29.1",
+    "validator": "^13.7.0"
   }
 }
