@@ -29,7 +29,7 @@
     "jscs": "^3.0.3",
     "jshint": "^2.8.0",
     "mocha": "^10.7.0",
-    "webpack": "^3.6.0"
+    "webpack": "^5.94.0"
   },
   "dependencies": {
     "moment": "^2.29.1",
