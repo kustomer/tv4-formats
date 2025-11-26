@@ -346,4 +346,86 @@ describe('tv4-formats', function () {
             assert(formats.guid('').length > 0);
         });
     });
+
+    describe('tv4 integration', function () {
+        var tv4 = require('tv4');
+        tv4.addFormat(formats);
+
+        it('validates email format in a schema', function () {
+            var schema = { type: 'string', format: 'email' };
+
+            assert(tv4.validate('test@example.com', schema));
+            assert(!tv4.validate('not-an-email', schema));
+        });
+
+        it('validates date format in a schema', function () {
+            var schema = { type: 'string', format: 'date' };
+
+            assert(tv4.validate('2024-02-29', schema));
+            assert(!tv4.validate('2023-02-30', schema));
+        });
+
+        it('validates date-time format in an object schema', function () {
+            var schema = {
+                type: 'object',
+                properties: {
+                    createdAt: { type: 'string', format: 'date-time' }
+                },
+                required: ['createdAt']
+            };
+
+            assert(tv4.validate({ createdAt: '2014-02-11T15:19:59Z' }, schema));
+            assert(!tv4.validate({ createdAt: 'not-a-date' }, schema));
+        });
+
+        it('validates uri format in a schema', function () {
+            var schema = { type: 'string', format: 'uri' };
+
+            assert(tv4.validate('https://example.com/path', schema));
+            assert(!tv4.validate('+41 not a uri', schema));
+        });
+
+        it('validates url format in a schema', function () {
+            var schema = { type: 'string', format: 'url' };
+
+            assert(tv4.validate('https://example.com/', schema));
+            assert(!tv4.validate('not-a-url', schema));
+        });
+
+        it('validates credit-card-number format in a schema', function () {
+            var schema = { type: 'string', format: 'credit-card-number' };
+
+            assert(tv4.validate('4242424242424242', schema));
+            assert(!tv4.validate('1234567890', schema));
+        });
+
+        it('validates duration format in a schema', function () {
+            var schema = { type: 'string', format: 'duration' };
+
+            assert(tv4.validate('P1Y2M3D', schema));
+            assert(!tv4.validate('invalid', schema));
+        });
+
+        it('validates time-offset format in a schema', function () {
+            var schema = { type: 'string', format: 'time-offset' };
+
+            assert(tv4.validate('-P1Y', schema));
+            assert(!tv4.validate('invalid', schema));
+        });
+
+        it('validates guid format in a schema', function () {
+            var schema = { type: 'string', format: 'guid' };
+
+            assert(tv4.validate('34f8216d-b4b2-5d4d-b46b-ba1466ea3ab9', schema));
+            assert(!tv4.validate('not-a-guid', schema));
+        });
+
+        it('provides error message on validation failure', function () {
+            var schema = { type: 'string', format: 'email' };
+
+            tv4.validate('not-an-email', schema);
+            assert(tv4.error);
+            assert.strictEqual(tv4.error.message, 'Format validation failed (E-mail address expected)');
+        });
+    });
 });
