@@ -427,5 +427,54 @@ describe('tv4-formats', function () {
             assert(tv4.error);
             assert.strictEqual(tv4.error.message, 'Format validation failed (E-mail address expected)');
         });
+
+        it('collects multiple format errors with validateMultiple', function () {
+            var schema = {
+                    type: 'object',
+                    properties: {
+                        email: { type: 'string', format: 'email' },
+                        website: { type: 'string', format: 'url' },
+                        created: { type: 'string', format: 'date' }
+                    }
+                },
+                data = {
+                    email: 'not-an-email',
+                    website: 'not-a-url',
+                    created: 'not-a-date'
+                },
+                result = tv4.validateMultiple(data, schema);
+
+            assert.strictEqual(result.valid, false);
+            assert.strictEqual(result.errors.length, 3);
+        });
+
+        it('validates using a registered schema by name', function () {
+            var validData = {
+                    email: 'test@example.com',
+                    createdAt: '2024-01-15T10:30:00Z'
+                },
+                invalidData = {
+                    email: 'not-an-email',
+                    createdAt: 'not-a-date'
+                },
+                validResult,
+                invalidResult;
+
+            tv4.addSchema('user', {
+                type: 'object',
+                properties: {
+                    email: { type: 'string', format: 'email' },
+                    createdAt: { type: 'string', format: 'date-time' }
+                },
+                required: ['email', 'createdAt']
+            });
+
+            validResult = tv4.validateMultiple(validData, 'user');
+            invalidResult = tv4.validateMultiple(invalidData, 'user');
+
+            assert.strictEqual(validResult.valid, true);
+            assert.strictEqual(invalidResult.valid, false);
+            assert.strictEqual(invalidResult.errors.length, 2);
+        });
     });
 });
