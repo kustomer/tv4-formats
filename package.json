@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -b ./tests",
-    "pretest": "jshint ./src ./tests index.js && jscs ./src ./tests ./index.js && webpack --hide-modules ./index.js dist/tv4-formats-bundle.js"
+    "pretest": "jshint ./src ./tests index.js && jscs ./src ./tests ./index.js && webpack --entry ./index.js --output-path ./dist --output-filename tv4-formats-bundle.js --mode production"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,8 @@
     "jscs": "^3.0.3",
     "jshint": "^2.8.0",
     "mocha": "^10.7.0",
-    "webpack": "^3.6.0"
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1"
   },
   "dependencies": {
     "moment": "^2.29.1",
