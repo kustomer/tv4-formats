@@ -18,7 +18,7 @@ describe('tv4-formats', function () {
         });
 
         it('complains about Feb 29 on a non-leap year', function () {
-            assert(formats.date('2023-02-29').length > 0);
+            assert.strictEqual(formats.date('2023-02-29'), 'A valid date in YYYY-MM-DD format expected');
         });
 
         it('complains about 30th of February, mentioning the expected format', function () {
