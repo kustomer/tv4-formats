@@ -286,7 +286,7 @@ describe('tv4-formats', function () {
             'P1', '2M', 'PW', 'P4D2', 'PT1Y', 'P2S', 'P3Y6M4D12H30M5S', 'PT0.5', ''
         ].forEach(function (invalidDuration) {
             it('validates invalid "' + invalidDuration + '" duration negatively', function () {
-                assert(formats.duration(invalidDuration).length);
+                assert(formats.duration(invalidDuration).length > 0);
             });
         });
     });
