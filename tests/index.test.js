@@ -308,7 +308,7 @@ describe('tv4-formats', function () {
             'P1', '-PW', 'P4D2', '-P3Y6M4D12H30M5S', ''
         ].forEach(function (invalidTimeOffset) {
             it('validates invalid "' + invalidTimeOffset + '" time offset negatively', function () {
-                assert(formats['time-offset'](invalidTimeOffset).length);
+                assert(formats['time-offset'](invalidTimeOffset).length > 0);
             });
         });
     });
