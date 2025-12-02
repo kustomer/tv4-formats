@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "moment": "^2.29.1",
-    "validator": "^13.7.0"
+    "validator": "^13.15.23"
   }
 }
