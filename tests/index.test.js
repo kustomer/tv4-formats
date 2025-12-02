@@ -348,7 +348,7 @@ describe('tv4-formats', function () {
     });
 
     describe('tv4 integration', function () {
-        var tv4 = require('tv4');
+        var tv4 = require('tv4').freshApi();
         tv4.addFormat(formats);
 
         it('validates email format in a schema', function () {
